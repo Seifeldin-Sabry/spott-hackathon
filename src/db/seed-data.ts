@@ -32,7 +32,7 @@ export const DOCS = [
   },
   {
     title: "Teams #payroll-be: 13th month for new joiners?",
-    body: "Q: New PC 200 joiner in September, do they get anything in December? A (posted 2024-11-14): No, under PC 200 you need a full year of service before the end-of-year premium applies. We told customer Brightline the same last year.",
+    body: "Q: New PC 200 joiner in March, do they get anything in December? A (posted 2024-11-14): No, under PC 200 you need a full year of service before the end-of-year premium applies. We told customer Brightline the same last year.",
     sourceType: "teams", sourceUrl: "https://teams.example.com/payroll-be/thread/8812",
     country: "BE", status: "current", ownerId: 5, reviewedAt: "2024-11-14",
   },

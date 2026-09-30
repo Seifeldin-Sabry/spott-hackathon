@@ -15,7 +15,7 @@ import { graph, graphAll, graphFetch } from "./graph";
 type NewDoc = typeof docs.$inferInsert;
 type DriveItem = {
   id: string; name: string; webUrl: string; lastModifiedDateTime: string;
-  file?: object; folder?: object; lastModifiedBy?: { user?: { id?: string } };
+  file?: object; folder?: object; createdBy?: { user?: { id?: string } };
 };
 
 function countryIn(name: string): Country | undefined {
@@ -55,7 +55,7 @@ async function syncSharePoint(): Promise<(NewDoc & { ownerExternalId?: string })
         country,
         status: path.some((p) => p.toLowerCase() === "archive") ? "superseded" : "current",
         reviewedAt: toDate(fields.ReviewedOn ?? item.lastModifiedDateTime),
-        ownerExternalId: item.lastModifiedBy?.user?.id,
+        ownerExternalId: item.createdBy?.user?.id, // uploader; editing ReviewedOn must not change the owner
       });
     }
   }
@@ -65,11 +65,14 @@ async function syncSharePoint(): Promise<(NewDoc & { ownerExternalId?: string })
 
 async function syncTeams(): Promise<(NewDoc & { ownerExternalId?: string })[]> {
   const out: (NewDoc & { ownerExternalId?: string })[] = [];
-  for (const team of await graphAll("/me/joinedTeams")) {
+  const teams = await graphAll("/me/joinedTeams");
+  console.log(`teams: member of ${teams.length} team(s)`);
+  for (const team of teams) {
     for (const channel of await graphAll(`/teams/${team.id}/channels`)) {
       const country = countryIn(channel.displayName);
-      if (!country) continue;
+      if (!country) { console.log(`teams: skip ${team.displayName} / ${channel.displayName} (no country in name)`); continue; }
       const threads = await graphAll(`/teams/${team.id}/channels/${channel.id}/messages?$top=50&$expand=replies`);
+      console.log(`teams: ${team.displayName} / ${channel.displayName} → ${threads.length} messages (${country})`);
       for (const root of threads.filter((m) => m.messageType === "message" && !m.deletedDateTime)) {
         const thread = [root, ...(root.replies ?? [])].filter((m) => !m.deletedDateTime);
         const last = thread.at(-1);

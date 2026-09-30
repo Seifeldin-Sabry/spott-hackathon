@@ -36,7 +36,7 @@ export function ChatDemo() {
       </div>
 
       <div ref={scrollRef} className="flex h-[clamp(360px,48vw,440px)] flex-col gap-4 overflow-y-auto p-5">
-        {step >= STEP.user1 && <UserBubble>Does a September joiner get the end-of-year premium in Belgium?</UserBubble>}
+        {step >= STEP.user1 && <UserBubble>Does a March joiner get the end-of-year premium in Belgium?</UserBubble>}
         {step === STEP.thinking1 && <Thinking tool="ask_with_trust" args='country: "BE"' />}
         {step >= STEP.result1 && (
           <AssistantBubble>

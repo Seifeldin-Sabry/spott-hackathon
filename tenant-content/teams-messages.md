@@ -2,7 +2,7 @@
 
 ## Channel: payroll-be (post as Elise Janssens)
 
-Q: New PC 200 joiner in September, do they get anything in December? A (posted 2024-11-14): No, under PC 200 you need a full year of service before the end-of-year premium applies. We told customer Brightline the same last year.
+Q: New PC 200 joiner in March, do they get anything in December? A (posted 2024-11-14): No, under PC 200 you need a full year of service before the end-of-year premium applies. We told customer Brightline the same last year.
 
 ## Channel: payroll-de (post as Lukas Becker)
 

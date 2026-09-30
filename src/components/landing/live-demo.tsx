@@ -13,7 +13,7 @@ const COUNTRIES: { code: Country; label: string }[] = [
 // Each one trips a different trust signal in the demo data.
 const SUGGESTIONS = [
   { signal: "Conflict", question: "What's the notice period for 2.5 years of seniority?" },
-  { signal: "Conflict", question: "Does a September joiner get the end-of-year premium?" },
+  { signal: "Conflict", question: "Does a March joiner get the end-of-year premium this year?" },
   { signal: "Outdated", question: "What's the max employer meal voucher contribution?" },
   { signal: "Wrong country", question: "Is a 13th month mandatory?" },
 ];
@@ -260,7 +260,7 @@ export function Receipt({ receipt }: { receipt: TrustReceipt }) {
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block text-sm font-semibold text-ink">{e.name}</span>
-                  <span className="block truncate text-xs text-neutral-500">{e.role} · {e.country}</span>
+                  <span className="block truncate text-xs text-neutral-500">{e.role ? `${e.role} · ${e.country}` : e.country}</span>
                 </span>
                 <ArrowRight className="size-4 text-neutral-300 transition-transform group-hover:translate-x-0.5 group-hover:text-ink" />
               </a>

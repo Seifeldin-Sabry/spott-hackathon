@@ -89,6 +89,7 @@ async function completeJson<T extends z.ZodType>(schema: T, system: string, user
     headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       model: MODEL,
+      max_tokens: 3000, // a receipt is ~1k tokens; without a cap OpenRouter reserves the model max against credits
       messages: [
         { role: "system", content: system },
         { role: "user", content: user },
