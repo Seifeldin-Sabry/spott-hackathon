@@ -1,0 +1,1 @@
+Effective 2026-01-01 the maximum employer contribution per meal voucher rises to €8.91, maximum face value €10.00. Minimum employee contribution unchanged at €1.09. Update payroll parameters before the January run.

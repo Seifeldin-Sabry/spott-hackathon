@@ -1,0 +1,1 @@
+Since the Single Status Act, notice for employer-initiated termination is expressed in weeks based on seniority. 0–3 months: 1 week. 3–6 months: 3 weeks. 6–9 months: 4 weeks. 1–2 years: 7 weeks. 2–3 years: 9 weeks. From 5 years: 15 weeks, plus 3 weeks per additional started year of seniority up to 20 years. Applies to blue- and white-collar workers alike.

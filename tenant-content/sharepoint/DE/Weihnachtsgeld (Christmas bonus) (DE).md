@@ -1,0 +1,1 @@
+There is no statutory entitlement to Weihnachtsgeld in Germany. It arises from collective agreements (Tarifvertrag), the employment contract, or company practice (betriebliche Übung) after three consecutive unconditional payments.

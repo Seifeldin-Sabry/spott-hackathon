@@ -1,0 +1,1 @@
+Customer Brightline (BE, 240 FTE) saw higher employer cost in January. Cause: new €8.91 ceiling applied automatically because their policy says 'maximum legal contribution'. Resolved by explaining the legal update and sharing the change notice.

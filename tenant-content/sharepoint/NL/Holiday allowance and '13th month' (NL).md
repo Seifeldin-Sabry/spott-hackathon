@@ -1,0 +1,1 @@
+In the Netherlands there is no statutory 13th month. Employees are entitled to a holiday allowance (vakantiegeld) of at least 8% of gross annual salary, usually paid in May. A 13th month only applies if the CAO or employment contract provides for it.

@@ -1,0 +1,1 @@
+Employer notice period depends on contract duration: under 5 years: 1 month; 5–10 years: 2 months; 10–15 years: 3 months; 15+ years: 4 months. Employee notice period is 1 month unless agreed otherwise.

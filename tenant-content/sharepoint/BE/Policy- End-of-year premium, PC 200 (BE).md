@@ -1,0 +1,1 @@
+White-collar employees under joint committee 200 are entitled to an end-of-year premium equal to one gross monthly salary. Employees with at least 6 months of seniority in the reference year receive it pro rata to the months worked. Paid with the December payroll.
