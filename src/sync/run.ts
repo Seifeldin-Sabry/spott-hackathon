@@ -5,6 +5,7 @@
 //   SharePoint: top-level folder per country (BE/, NL/, DE/). Files under an "Archive" folder = superseded.
 //               Optional date column "ReviewedOn" overrides last-modified as the review date.
 //   Teams:      channel name contains the country code, e.g. "payroll-be".
+//               Optional TEAMS_TEAM_ID limits the sync to one team (the groupId in "Get link to team").
 import mammoth from "mammoth";
 import { sql } from "drizzle-orm";
 import { db } from "@/db";
@@ -65,7 +66,8 @@ async function syncSharePoint(): Promise<(NewDoc & { ownerExternalId?: string })
 
 async function syncTeams(): Promise<(NewDoc & { ownerExternalId?: string })[]> {
   const out: (NewDoc & { ownerExternalId?: string })[] = [];
-  const teams = await graphAll("/me/joinedTeams");
+  // TEAMS_TEAM_ID pins the demo team; /me/joinedTeams can lag hours behind new memberships.
+  const teams = process.env.TEAMS_TEAM_ID ? [await graph(`/teams/${process.env.TEAMS_TEAM_ID}`)] : await graphAll("/me/joinedTeams");
   console.log(`teams: member of ${teams.length} team(s)`);
   for (const team of teams) {
     for (const channel of await graphAll(`/teams/${team.id}/channels`)) {
@@ -93,6 +95,8 @@ async function syncTeams(): Promise<(NewDoc & { ownerExternalId?: string })[]> {
   return out;
 }
 
+const me = await graph("/me?$select=displayName,userPrincipalName");
+console.log(`signed in as ${me.displayName} <${me.userPrincipalName}>`);
 const users = await graphAll("/users?$select=id,displayName,jobTitle,department,usageLocation,mail,userPrincipalName&$top=999");
 const [spDocs, teamsDocs] = [await syncSharePoint(), await syncTeams()];
 const allDocs = [...spDocs, ...teamsDocs];

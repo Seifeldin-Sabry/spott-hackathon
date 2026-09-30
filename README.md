@@ -27,6 +27,8 @@ People directory ─┘                                  (docs, experts)    (Ope
 | `src/db/seed-data.ts` | Fictional demo knowledge with 4 planted traps (conflicts, outdated doc, wrong country) |
 | `tenant-content/` | The same demo knowledge as files, for uploading to a Microsoft 365 tenant |
 
+Live: https://spott-hackathon.vercel.app
+
 ## Run it
 
 Requires [Bun](https://bun.sh), a Neon (Postgres) database and an [OpenRouter](https://openrouter.ai) key.
@@ -51,18 +53,18 @@ claude mcp add --transport http trust-receipt http://localhost:3000/api/mcp
 ### Sync from Microsoft 365 (optional)
 
 1. **Register an app in Entra.** Single tenant, no redirect URI, *Allow public client flows* = Yes. Add these Graph *delegated* permissions and grant admin consent: `User.Read.All`, `Sites.Read.All`, `Team.ReadBasic.All`, `Channel.ReadBasic.All`, `ChannelMessage.Read.All`.
-2. **Add to `.env.local`:** `GRAPH_TENANT_ID`, `GRAPH_CLIENT_ID`, `SHAREPOINT_SITE` (e.g. `contoso.sharepoint.com:/sites/Knowledge`).
+2. **Add to `.env.local`:** `GRAPH_TENANT_ID`, `GRAPH_CLIENT_ID`, `SHAREPOINT_SITE` (e.g. `contoso.sharepoint.com:/sites/Knowledge`) and `TEAMS_TEAM_ID`. `TEAMS_TEAM_ID` is the `groupId` in Teams → team → … → *Get link to team*. Without it, the sync reads every team you're in, and that list can lag hours behind new memberships.
 3. **Tenant conventions:**
    - SharePoint: top-level folders `BE/`, `NL/`, `DE/` in the site's Documents library. Anything under `Archive/` counts as superseded. An optional `ReviewedOn` date column sets the review date. The uploader is the owner.
-   - Teams: channel names contain the country code (`payroll-be`). The last replier in a thread is its owner.
-4. **Run `bun run sync`** and sign in with the printed code. This **replaces** all data in the database; `bun run db:seed` restores the demo data.
+   - Teams: channel names contain the country code (`payroll-be`). The last replier in a thread is its owner. The signing-in account must be a member of the team and of any private channel.
+4. **Run `bun run sync`** and sign in with the printed code. The sign-in is cached for about an hour in `.graph-token.json` (gitignored). The sync **replaces** all data in the database; `bun run db:seed` restores the demo data.
+
+The sync runs locally and writes to the database. The deployed app only reads the database, so production needs just `DATABASE_URL`, `OPENROUTER_API_KEY` and `OPENROUTER_MODEL`. No Microsoft settings, and no redeploy after a sync.
 
 `bun run tenant:export` regenerates `tenant-content/` from the seed data.
 
 ## Unfinished / known limits
 
-- **Vercel deploy is failing.** Both production builds show as failed. Not yet diagnosed; start by checking that `DATABASE_URL` and `OPENROUTER_API_KEY` are set in the Vercel project.
-- **Teams threads don't sync yet in the demo tenant.** The syncing account is a member of 0 teams. Add it to the team and to the private `payroll-be` channel, then re-sync.
 - **Entra users have no job titles**, so expert cards show only the country.
 - **The hero chat is a scripted replay.** The live demo section is the real thing.
 - **No retrieval.** The whole corpus goes into each prompt. Fine for ~15 docs; add search before scaling.
