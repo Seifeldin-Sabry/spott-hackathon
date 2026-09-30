@@ -43,7 +43,7 @@ bun dev                      # http://localhost:3000
 
 Try the trap questions in the live demo section (country: Belgium).
 
-**Model.** Set with `OPENROUTER_MODEL`; the default is `anthropic/claude-opus-5`. `anthropic/claude-sonnet-5` is recommended for demos: it caught all four traps. The free `nvidia/nemotron-3-super-120b-a12b:free` works but misses some conflicts and wrong-country warnings.
+**Model.** Set with `OPENROUTER_MODEL`; the default is `anthropic/claude-sonnet-5`, which caught all four traps at 11–19 seconds per answer. The free `nvidia/nemotron-3-super-120b-a12b:free` works but misses some conflicts and wrong-country warnings.
 
 **Connect Claude Code to the MCP server:**
 ```bash

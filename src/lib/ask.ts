@@ -7,8 +7,8 @@ import { docs, experts, type Doc, type Expert } from "@/db/schema";
 export const COUNTRIES = ["BE", "NL", "DE"] as const;
 export type Country = (typeof COUNTRIES)[number];
 
-// Any OpenRouter model with structured_outputs support. Sonnet is faster for live demos.
-const MODEL = process.env.OPENROUTER_MODEL ?? "anthropic/claude-opus-5";
+// Any OpenRouter model with structured_outputs support. Sonnet 5 passed every demo trap at 11–19s.
+const MODEL = process.env.OPENROUTER_MODEL ?? "anthropic/claude-sonnet-5";
 
 const ModelAnswer = z.object({
   answer: z.string(),
@@ -24,7 +24,7 @@ Each source has an id, country, status, source type and last-reviewed date.
 - Cite every factual claim with the docId it came from.
 - Prefer sources with status "current" and recent review dates. Never present a "superseded" source as the answer.
 - If two sources disagree on a fact, report it in conflicts and say in the answer which one you trust and why.
-- If a source you considered is for a different country than the one asked about, report it in scopeWarnings.
+- If a source from a different country could be mistaken for the answer to this question, report it in scopeWarnings. Skip other-country sources about unrelated topics.
 - If the sources do not answer the question, say so and set confidence to low. Do not use outside knowledge.`;
 
 // Deterministic, not model-judged: freshness is metadata, so compute it in code.
