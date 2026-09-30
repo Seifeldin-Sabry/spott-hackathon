@@ -13,9 +13,7 @@ const COUNTRIES: { code: Country; label: string }[] = [
 // Each one trips a different trust signal in the demo data.
 const SUGGESTIONS = [
   { signal: "Conflict", question: "What's the notice period for 2.5 years of seniority?" },
-  { signal: "Conflict", question: "Does a March joiner get the end-of-year premium this year?" },
   { signal: "Outdated", question: "What's the max employer meal voucher contribution?" },
-  { signal: "Wrong country", question: "Is a 13th month mandatory?" },
 ];
 
 const LOADING_STEPS = ["Reading SharePoint…", "Scanning Teams threads…", "Checking review dates…", "Comparing sources…", "Writing the receipt…"];
